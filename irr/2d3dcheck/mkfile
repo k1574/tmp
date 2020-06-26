@@ -1,0 +1,19 @@
+<mkconfig
+#HDR = `{ls *.hh}
+SRC = `{ls *.cc}
+OBJ = $OBJ ${SRC:%.cc=%.o}
+TGT = $NAME
+all:QV: $TGT
+	echo -n
+strip :V: $TGT
+	$STRIP $TGT
+$TGT : $OBJ
+	$LD -o $target $LDFLAGS $prereq $LIB
+%.o : %.cc
+	$CXX -c -o $target $CPPFLAGS $CXXFLAGS $prereq
+%.c :Q: $HDR
+	touch $target
+%.h :Q:
+	touch $target
+clean :V:
+	rm -f $TGT $OBJ
